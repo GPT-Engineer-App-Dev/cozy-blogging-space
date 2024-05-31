@@ -1,6 +1,7 @@
-import { Container, Text, VStack, Heading, Box, Image, Link } from "@chakra-ui/react";
+import { Container, Text, VStack, Heading, Box, Image, Link, Button } from "@chakra-ui/react";
+import { Link as RouterLink } from "react-router-dom";
 
-const Index = () => {
+const Index = ({ posts }) => {
   return (
     <Container centerContent maxW="container.md" height="100vh" display="flex" flexDirection="column" justifyContent="center" alignItems="center">
       <VStack spacing={4}>
@@ -11,7 +12,13 @@ const Index = () => {
         <Text fontSize="lg" textAlign="center">
           Dive into my thoughts, experiences, and stories. Explore various topics ranging from technology to personal growth.
         </Text>
-        <Link href="/about" color="teal.500" fontSize="lg">Learn more about me</Link>
+        <Button as={RouterLink} to="/add-post" colorScheme="teal" size="md">Add New Post</Button>
+        {posts.map((post, index) => (
+          <Box key={index} p={5} shadow="md" borderWidth="1px" width="100%">
+            <Heading fontSize="xl">{post.title}</Heading>
+            <Text mt={4}>{post.content}</Text>
+          </Box>
+        ))}
       </VStack>
     </Container>
   );
